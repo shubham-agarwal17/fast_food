@@ -37,11 +37,11 @@
     @apply flex flex-row items-center justify-center size-5 bg-primary/10 rounded-md;
   }
 
-  .custom_btn {
+  .custom-btn {
     @apply bg-primary rounded-full p-3 w-full flex flex-row justify-center;
   }
 
-  .custom_header {
+  .custom-header {
     @apply w-full flex flex-row items-center justify-between mb-10;
   }
 
