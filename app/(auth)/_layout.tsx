@@ -1,5 +1,4 @@
 import { View, KeyboardAvoidingView, Platform, Dimensions, Image, ScrollView } from 'react-native'
-import React from 'react'
 import { Redirect, Slot } from 'expo-router'
 import { images } from '@/constants';
 import useAuthStore from '@/store/auth.store';

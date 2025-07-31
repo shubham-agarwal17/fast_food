@@ -1,12 +1,17 @@
-import { CreateUserParams, SignInParams } from "@/type";
-import { Account, Avatars, Client, Databases, ID, Query } from "react-native-appwrite";
+import { CreateUserParams, GetMenuParams, SignInParams } from "@/type";
+import { Account, Avatars, Client, Databases, ID, Query, Storage } from "react-native-appwrite";
 
 export const appwriteConfig = {
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!,
   projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!,
   platform: "com.shubham.foodordering",
   databaseId: "6875411a001d45cf131c",
+  bucketId: "687a5fc6000740783d62",
   userCollectionId: "6875414800288310e883",
+  categoriesCollectionId: "687a5c3d003d39f016e4",
+  menuCollectionId: "687a5cd10008cb1e1900",
+  customizationsCollectionId: "687a5dfb001d6d77a77c",
+  menuCustomizationsCollectionId: "687a5ed8001622d874da",
 };
 
 export const client = new Client();
@@ -18,6 +23,7 @@ client
 
 export const account = new Account(client);
 export const databases = new Databases(client);
+export const storage = new Storage(client);
 const avatars = new Avatars(client);
 
 export const createUser = async ({
@@ -75,6 +81,38 @@ export const getCurrentUser = async () => {
     return currentUser.documents[0];
   } catch (error) {
     console.log(error);
+    throw new Error(error as string);
+  }
+}
+
+export const getMenu = async ({ category, query }: GetMenuParams) => {
+  try {
+    const queries: string[] = [];
+
+    if (category) queries.push(Query.equal("categories", category));
+    if (query) queries.push(Query.search("name", query));
+
+    const menus = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.menuCollectionId,
+      queries
+    )
+
+    return menus.documents;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+export const getCategories = async () => {
+  try {
+    const categories = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.categoriesCollectionId
+    )
+
+    return categories.documents;
+  } catch (error) {
     throw new Error(error as string);
   }
 }

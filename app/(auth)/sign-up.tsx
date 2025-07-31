@@ -1,5 +1,5 @@
-import { View, Text, Button, Alert } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Alert } from "react-native";
+import { useState } from "react";
 import { Link, router } from "expo-router";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
