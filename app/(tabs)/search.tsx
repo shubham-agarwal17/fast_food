@@ -11,7 +11,7 @@ import { MenuItem } from '@/type'
 import SearchBar from '@/components/SearchBar'
 import Filter from '@/components/Filter'
 
-const search = () => {
+const Search = () => {
   const { category, query } = useLocalSearchParams<{query: string; category: string}>();
 
   const { data, refetch, loading } = useAppwrite({ fn: getMenu, params: { category, query, limit: 6, }});
@@ -64,4 +64,4 @@ const search = () => {
   )
 }
 
-export default search
+export default Search
